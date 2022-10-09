@@ -7,14 +7,14 @@ import EmptyCard from '../EmptyCard';
 
 export default function ListContainer() {
 
-    const { products } = useContext(Context);
+    const { showProducts } = useContext(Context);
 
     return (
         <div className={s.list_container}>
             {
-                products.length === 0
+                showProducts.length === 0
                     ? <EmptyCard/>
-                    : products.map(product =>
+                    : showProducts.map(product =>
                     <ListItem
                         key={product.id}
                         {...product}
