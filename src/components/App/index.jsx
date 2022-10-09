@@ -6,9 +6,29 @@ import { useState, useEffect } from 'react';
 
 function App() {
 
-  const [products, setProducts] = useState([]);
-  const [showProducts, setShowProducts] = useState(products);
+  const [products, _setProducts] = useState([]);
+  const [showProducts, _setShowProducts] = useState(products);
   const [searchWord, setSearchWord] = useState('');
+
+  const setProducts = (state) => {
+    _setProducts(state);
+    localStorage.setItem('products', JSON.stringify(state))
+  }
+
+  useEffect(() => {
+    const products = JSON.parse(localStorage.getItem('products')) ?? [];
+    setProducts(products);
+  }, []);
+  
+  const setShowProducts = (state) => {
+    _setShowProducts(state);
+    localStorage.setItem('showProducts', JSON.stringify(state))
+  }
+
+  useEffect(() => {
+    const showProducts = JSON.parse(localStorage.getItem('showProducts')) ?? [];
+    setShowProducts(showProducts);
+  }, []);
 
   const addProduct = (title, price, discount) => setProducts(
     [...products,
@@ -27,7 +47,7 @@ function App() {
   useEffect(searchProduct, [products, searchWord]);
 
   return (
-    <Context.Provider value={{addProduct, showProducts, searchProduct, setSearchWord}}>
+    <Context.Provider value={{addProduct, showProducts, setSearchWord}}>
       <AddForm />
       <ListProducts />
     </Context.Provider >
