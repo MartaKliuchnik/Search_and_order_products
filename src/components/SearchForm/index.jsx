@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './style.module.sass';
 import Input from '../../components/UI/Input'
-import Button from '../../components/UI/Button'
 import { useContext } from 'react';
 import {Context} from '../../context'
 
@@ -14,6 +13,7 @@ export default function SearchForm() {
     //     event.preventDefault();
     //     const { search } = event.target;
     //     setSearchWord(search.value);
+        
     // }
 
     const change = event => setSearchWord(event.target.value);
@@ -23,9 +23,9 @@ export default function SearchForm() {
             <form
                 // onSubmit={submit}
                 onChange={change}
-                    className={s.searh_form}>
+                className={s.searh_form}>
+                <p>Поиск по...</p>
                 <Input placeholder='Название' name='search'/>
-                <Button >Найти</Button>
             </form>
         </div>
     )

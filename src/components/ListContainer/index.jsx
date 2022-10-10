@@ -7,19 +7,41 @@ import EmptyCard from '../EmptyCard';
 
 export default function ListContainer() {
 
-    const { showProducts } = useContext(Context);
+    const { products } = useContext(Context);
+
 
     return (
         <div className={s.list_container}>
             {
-                showProducts.length === 0
+                products.length === 0
                     ? <EmptyCard/>
-                    : showProducts.map(product =>
-                    <ListItem
-                        key={product.id}
-                        {...product}
-                    />)
+                    : products.map(product => 
+                        (product.search)
+                        ? <ListItem
+                                key={product.id}
+                            {...product} />   
+                        : ''
+                    
+                    )
             }
         </div>
     )
+    
+    // const { showProducts } = useContext(Context);
+
+    // return (
+    //     <div className={s.list_container}>
+    //         {
+    //             showProducts.length === 0
+    //                 ? <EmptyCard/>
+    //                 : showProducts.map(product =>
+    //                 <ListItem
+    //                     key={product.id}
+    //                     {...product}
+    //                 />)
+    //         }
+    //     </div>
+    // )
+
+    
 }

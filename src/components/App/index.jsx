@@ -6,13 +6,12 @@ import { useState, useEffect } from 'react';
 
 function App() {
 
-  const [products, _setProducts] = useState([]);
-  const [showProducts, _setShowProducts] = useState(products);
+  let [products, _setProducts] = useState([]);
   const [searchWord, setSearchWord] = useState('');
 
   const setProducts = (state) => {
     _setProducts(state);
-    localStorage.setItem('products', JSON.stringify(state))
+    localStorage.setItem('products', JSON.stringify(state));
   }
 
   useEffect(() => {
@@ -20,34 +19,45 @@ function App() {
     setProducts(products);
   }, []);
   
-  const setShowProducts = (state) => {
-    _setShowProducts(state);
-    localStorage.setItem('showProducts', JSON.stringify(state))
+  const addProduct = (title, price, discount) => {
+    if (searchWord === '') {
+      setProducts(
+        [...products,
+        {
+          id: Date.now(),
+          title, price, discount,
+          search: true
+        }])
+    } else {
+      products = 
+        [...products,
+        {
+          id: Date.now(),
+          title, price, discount,
+          search: true
+        }];
+      searchProduct();
+    }
+  };
+
+  const searchProduct = () => {
+    products.map(product => {
+      if ((product.title.toLowerCase().startsWith(searchWord.toLowerCase()))) {
+        product.search = true;
+      } else {
+        product.search = false;
+      }
+      return products;
+    })
+    setProducts([...products]);
   }
 
   useEffect(() => {
-    const showProducts = JSON.parse(localStorage.getItem('showProducts')) ?? [];
-    setShowProducts(showProducts);
-  }, []);
-
-  const addProduct = (title, price, discount) => setProducts(
-    [...products,
-    {
-      id: Date.now(),
-      title, price, discount
-    }]
-  );
-
-  const searchProduct = () => {
-    const filterProducts = products.filter(product =>
-      product.title.toLowerCase().startsWith(searchWord.toLowerCase()))
-    setShowProducts(filterProducts);
-  }
-
-  useEffect(searchProduct, [products, searchWord]);
-
+    searchProduct()
+  }, [searchWord])
+  
   return (
-    <Context.Provider value={{addProduct, showProducts, setSearchWord}}>
+    <Context.Provider value={{addProduct, products, setSearchWord, searchProduct}}>
       <AddForm />
       <ListProducts />
     </Context.Provider >

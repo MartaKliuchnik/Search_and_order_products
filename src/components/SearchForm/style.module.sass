@@ -3,12 +3,13 @@
     background-color: #34495E
     padding: 50px 82px
     border-radius: 20px
-    display: grid
     gap: 30px
     margin-bottom: 70px
     color: white
     font-size: 30px
     &>.searh_form
-        display: grid
-        grid-template-columns: repeat(2, 1fr)
-        gap: 95px
+        display: flex
+        align-items: center
+        justify-content: space-between
+    &>.searh_form>input
+        width: 60%
