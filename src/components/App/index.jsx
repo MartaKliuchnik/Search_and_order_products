@@ -2,7 +2,8 @@ import AddForm from "../../pages/AddForm";
 import ListProducts from '../../pages/ListProducts';
 import { Context } from '../../context';
 import { useState, useEffect } from 'react';
-
+import { Routes, Route } from 'react-router-dom';
+import NavMenu from "../NavMenu";
 
 function App() {
 
@@ -58,9 +59,12 @@ function App() {
   
   return (
     <Context.Provider value={{addProduct, products, setSearchWord, searchProduct}}>
-      <AddForm />
-      <ListProducts />
-    </Context.Provider >
+        <NavMenu/>
+          <Routes>
+            <Route path='/add' element={<AddForm />} />
+            <Route path='/products' element={<ListProducts />} />
+          </Routes>
+    </Context.Provider>
   );
 }
 
