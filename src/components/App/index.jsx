@@ -27,7 +27,9 @@ function App() {
         {
           id: Date.now(),
           title, price, discount,
-          search: true
+          search: true,
+          new_price: (price - price * discount / 100),
+          sort: true
         }])
     } else {
       products = 
@@ -35,7 +37,9 @@ function App() {
         {
           id: Date.now(),
           title, price, discount,
-          search: true
+          search: true, 
+          new_price: (price - price * discount / 100),
+          sort: true
         }];
       searchProduct();
     }
@@ -56,9 +60,25 @@ function App() {
   useEffect(() => {
     searchProduct()
   }, [searchWord])
+
+  const sort_title = (sorting_сriterion) => { 
+    products.map(product => (product.sort === false) ? product.sort = true : '');
+    console.log(products);
+    
+    if (sorting_сriterion === 'title') {
+      products.sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()));
+      return setProducts([...products]);
+    } else if (sorting_сriterion === 'price') {
+      products.sort((a, b) => a.new_price - b.new_price);
+      return setProducts([...products]);
+    } 
+    products.map(product => (product.discount !== "") ? product.sort = true : product.sort = false);
+    products.sort((a, b) => a.price - b.price);
+    return setProducts([...products]);
+  }
   
   return (
-    <Context.Provider value={{addProduct, products, setSearchWord, searchProduct}}>
+    <Context.Provider value={{addProduct, products, setSearchWord, searchProduct, sort_title}}>
         <NavMenu/>
           <Routes>
             <Route path='/add' element={<AddForm />} />

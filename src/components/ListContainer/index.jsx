@@ -16,7 +16,7 @@ export default function ListContainer() {
                 products.length === 0
                     ? <EmptyCard/>
                     : products.map(product => 
-                        (product.search)
+                        (product.search && product.sort)
                         ? <ListItem
                                 key={product.id}
                             {...product} />   

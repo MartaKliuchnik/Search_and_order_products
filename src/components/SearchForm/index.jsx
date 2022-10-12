@@ -2,7 +2,8 @@ import React from 'react';
 import s from './style.module.sass';
 import Input from '../../components/UI/Input'
 import { useContext } from 'react';
-import {Context} from '../../context'
+import { Context } from '../../context';
+import SortForm from '../SortForm'
 
 
 export default function SearchForm() {
@@ -27,6 +28,7 @@ export default function SearchForm() {
                 <p>Поиск по...</p>
                 <Input placeholder='Название' name='search'/>
             </form>
+            <SortForm/>
         </div>
     )
 }
