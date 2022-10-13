@@ -14,8 +14,8 @@ export default function SearchForm() {
     //     event.preventDefault();
     //     const { search } = event.target;
     //     setSearchWord(search.value);
-        
     // }
+
 
     const change = event => setSearchWord(event.target.value);
 

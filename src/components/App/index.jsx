@@ -17,8 +17,9 @@ function App() {
 
   useEffect(() => {
     const products = JSON.parse(localStorage.getItem('products')) ?? [];
-    setProducts(products);
+      setProducts(products);
   }, []);
+
   
   const addProduct = (title, price, discount) => {
     if (searchWord === '') {
@@ -46,6 +47,7 @@ function App() {
   };
 
   const searchProduct = () => {
+    console.log('search');
     products.map(product => {
       if ((product.title.toLowerCase().startsWith(searchWord.toLowerCase()))) {
         product.search = true;
@@ -64,7 +66,6 @@ function App() {
   const sort_title = (sorting_сriterion) => { 
     products.map(product => (product.sort === false) ? product.sort = true : '');
     console.log(products);
-    
     if (sorting_сriterion === 'title') {
       products.sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()));
       return setProducts([...products]);
